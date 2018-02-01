@@ -10,6 +10,7 @@ import requests
 
 from textblob import TextBlob
 from .forms import BlobTextForm
+from django.views.decorators.csrf import csrf_exempt
 
 
 def django_view(request, text):
@@ -19,6 +20,7 @@ def django_view(request, text):
     response = testimonial.sentiment.polarity
     return HttpResponse(response)
 
+@csrf_exempt
 def polarity_view(request):
 	if request.method == 'POST':
 		formdata = TextBlob(request.POST)
