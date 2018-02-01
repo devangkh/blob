@@ -23,8 +23,8 @@ def django_view(request, text):
 @csrf_exempt
 def polarity_view(request):
 	if request.method == 'POST':
-		formdata = TextBlob(request.POST)
-		text = fromdata.cleaned_data['blobtext']
+		form_data = BlobTextForm(request.POST)
+		text = form_data.data['blobtext']
 		testimonial = TextBlob(text)
 		response = testimonial.sentiment.polarity
 		return HttpResponse(response)
