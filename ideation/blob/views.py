@@ -9,6 +9,7 @@ import requests
 
 
 from textblob import TextBlob
+from .forms import BlobTextForm
 
 
 def django_view(request, text):
@@ -17,3 +18,11 @@ def django_view(request, text):
 
     response = testimonial.sentiment.polarity
     return HttpResponse(response)
+
+def polarity_view(request):
+	if request.method == 'POST':
+		formdata = TextBlob(request.POST)
+		text = fromdata.cleaned_data['blobtext']
+		testimonial = TextBlob(text)
+		response = testimonial.sentiment.polarity
+		return HttpResponse(response)
