@@ -9,6 +9,7 @@ import requests, json
 
 import gensim
 import re
+from bs4 import BeautifulSoup
 from textblob import TextBlob
 from .forms import BlobTextForm, DualTextForm
 from django.views.decorators.csrf import csrf_exempt
@@ -39,16 +40,18 @@ def summary_view(request):
     if request.method == 'POST':
         try:
             form_data = BlobTextForm(request.POST)
-            text = form_data.data['blobtext']
-            text = re.sub('"', '', text)
+            rawtext = form_data.data['blobtext']
+            cleantext = BeautifulSoup(raw_text, "lxml").text
+            text = re.sub('"', '', cleantext)
             summary = gensim.summarization.summarizer.summarize(text, ratio=0.2, word_count=None, split=False)
             altered_response=HttpResponse(summary)
             altered_response["Access-Control-Allow-Origin"] = "*"
             return altered_response
         except Exception as e:
             form_data = BlobTextForm(request.POST)
-            text = form_data.data['blobtext']
-            text = re.sub('"', '', text)
+            rawtext = form_data.data['blobtext']
+            cleantext = BeautifulSoup(raw_text, "lxml").text
+            text = re.sub('"', '', cleantext)
             altered_response=HttpResponse(text)
             altered_response["Access-Control-Allow-Origin"] = "*"
             return altered_response
@@ -57,8 +60,9 @@ def summary_view(request):
 def keywords_view(request):
     if request.method == 'POST':
         form_data = BlobTextForm(request.POST)
-        text = form_data.data['blobtext']
-        text = re.sub('"', '', text)
+        rawtext = form_data.data['blobtext']
+        cleantext = BeautifulSoup(raw_text, "lxml").text
+        text = re.sub('"', '', cleantext)
         keywords = get_ranked_phrases(text)
         altered_response=HttpResponse(keywords)
         altered_response["Access-Control-Allow-Origin"] = "*"
@@ -69,8 +73,9 @@ def keywords_view(request):
 def keywordsScore_view(request):
     if request.method == 'POST':
         form_data = BlobTextForm(request.POST)
-        text = form_data.data['blobtext']
-        text = re.sub('"', '', text)
+        rawtext = form_data.data['blobtext']
+        cleantext = BeautifulSoup(raw_text, "lxml").text
+        text = re.sub('"', '', cleantext)
         keywords = get_ranked_phrases(text, True)
         altered_response=HttpResponse(keywords)
         altered_response["Access-Control-Allow-Origin"] = "*"
@@ -80,8 +85,9 @@ def keywordsScore_view(request):
 def wordFrequency_view(request):
     if request.method == 'POST':
         form_data = BlobTextForm(request.POST)
-        text = form_data.data['blobtext']
-        text = re.sub('"', '', text)
+        rawtext = form_data.data['blobtext']
+        cleantext = BeautifulSoup(raw_text, "lxml").text
+        text = re.sub('"', '', cleantext)
         wordfre = get_word_frequency_distribution(text)
         j = json.dumps(wordfre)
         return HttpResponse(j)
@@ -90,8 +96,9 @@ def wordFrequency_view(request):
 def wordDegrees_view(request):
     if request.method == 'POST':
         form_data = BlobTextForm(request.POST)
-        text = form_data.data['blobtext']
-        text = re.sub('"', '', text)
+        rawtext = form_data.data['blobtext']
+        cleantext = BeautifulSoup(raw_text, "lxml").text
+        text = re.sub('"', '', cleantext)
         wordfre = get_word_degrees(text)
         j = json.dumps(wordfre)
         return HttpResponse(j)
