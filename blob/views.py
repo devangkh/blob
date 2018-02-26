@@ -41,7 +41,7 @@ def summary_view(request):
         try:
             form_data = BlobTextForm(request.POST)
             rawtext = form_data.data['blobtext']
-            cleantext = BeautifulSoup(raw_text, "lxml").text
+            cleantext = BeautifulSoup(rawtext, "lxml").text
             text = re.sub('"', '', cleantext)
             summary = gensim.summarization.summarizer.summarize(text, ratio=0.2, word_count=None, split=False)
             altered_response=HttpResponse(summary)
@@ -50,7 +50,7 @@ def summary_view(request):
         except Exception as e:
             form_data = BlobTextForm(request.POST)
             rawtext = form_data.data['blobtext']
-            cleantext = BeautifulSoup(raw_text, "lxml").text
+            cleantext = BeautifulSoup(rawtext, "lxml").text
             text = re.sub('"', '', cleantext)
             altered_response=HttpResponse(text)
             altered_response["Access-Control-Allow-Origin"] = "*"
@@ -61,7 +61,7 @@ def keywords_view(request):
     if request.method == 'POST':
         form_data = BlobTextForm(request.POST)
         rawtext = form_data.data['blobtext']
-        cleantext = BeautifulSoup(raw_text, "lxml").text
+        cleantext = BeautifulSoup(rawtext, "lxml").text
         text = re.sub('"', '', cleantext)
         keywords = get_ranked_phrases(text)
         altered_response=HttpResponse(keywords)
@@ -74,7 +74,7 @@ def keywordsScore_view(request):
     if request.method == 'POST':
         form_data = BlobTextForm(request.POST)
         rawtext = form_data.data['blobtext']
-        cleantext = BeautifulSoup(raw_text, "lxml").text
+        cleantext = BeautifulSoup(rawtext, "lxml").text
         text = re.sub('"', '', cleantext)
         keywords = get_ranked_phrases(text, True)
         altered_response=HttpResponse(keywords)
@@ -86,7 +86,7 @@ def wordFrequency_view(request):
     if request.method == 'POST':
         form_data = BlobTextForm(request.POST)
         rawtext = form_data.data['blobtext']
-        cleantext = BeautifulSoup(raw_text, "lxml").text
+        cleantext = BeautifulSoup(rawtext, "lxml").text
         text = re.sub('"', '', cleantext)
         wordfre = get_word_frequency_distribution(text)
         j = json.dumps(wordfre)
@@ -97,7 +97,7 @@ def wordDegrees_view(request):
     if request.method == 'POST':
         form_data = BlobTextForm(request.POST)
         rawtext = form_data.data['blobtext']
-        cleantext = BeautifulSoup(raw_text, "lxml").text
+        cleantext = BeautifulSoup(rawtext, "lxml").text
         text = re.sub('"', '', cleantext)
         wordfre = get_word_degrees(text)
         j = json.dumps(wordfre)
