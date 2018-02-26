@@ -31,23 +31,27 @@ def polarity_view(request):
 		testimonial = TextBlob(text)
 		response = testimonial.sentiment.polarity
 		altered_response=HttpResponse(response)
-                altered_response["Access-Control-Allow-Origin"] = "*"
-                return altered_response
+        altered_response["Access-Control-Allow-Origin"] = "*"
+        return altered_response
 
 @csrf_exempt
 def summary_view(request):
-	if request.method == 'POST':
-            try:
-		form_data = BlobTextForm(request.POST)
-		text = form_data.data['blobtext']
-		text = re.sub('"', '', text)
-		summary = gensim.summarization.summarizer.summarize(text, ratio=0.2, word_count=None, split=False)
-		return HttpResponse(summary)
-            except Exception as e:
-                form_data = BlobTextForm(request.POST)
-                text = form_data.data['blobtext']
-                text = re.sub('"', '', text)
-                return HttpResponse(text)
+    if request.method == 'POST':
+        try:
+            form_data = BlobTextForm(request.POST)
+            text = form_data.data['blobtext']
+            text = re.sub('"', '', text)
+            summary = gensim.summarization.summarizer.summarize(text, ratio=0.2, word_count=None, split=False)
+            altered_response=HttpResponse(summary)
+            altered_response["Access-Control-Allow-Origin"] = "*"
+            return altered_response
+        except Exception as e:
+            form_data = BlobTextForm(request.POST)
+            text = form_data.data['blobtext']
+            text = re.sub('"', '', text)
+            altered_response=HttpResponse(text)
+            altered_response["Access-Control-Allow-Origin"] = "*"
+            return altered_response
         
 @csrf_exempt
 def keywords_view(request):
@@ -56,7 +60,9 @@ def keywords_view(request):
         text = form_data.data['blobtext']
         text = re.sub('"', '', text)
         keywords = get_ranked_phrases(text)
-        return HttpResponse(keywords)
+        altered_response=HttpResponse(keywords)
+        altered_response["Access-Control-Allow-Origin"] = "*"
+        return altered_response
 
 
 @csrf_exempt
@@ -66,7 +72,9 @@ def keywordsScore_view(request):
         text = form_data.data['blobtext']
         text = re.sub('"', '', text)
         keywords = get_ranked_phrases(text, True)
-        return HttpResponse(keywords)
+        altered_response=HttpResponse(keywords)
+        altered_response["Access-Control-Allow-Origin"] = "*"
+        return altered_response
     
 @csrf_exempt
 def wordFrequency_view(request):
