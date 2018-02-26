@@ -30,16 +30,24 @@ def polarity_view(request):
 		text = form_data.data['blobtext']
 		testimonial = TextBlob(text)
 		response = testimonial.sentiment.polarity
-		return HttpResponse(response)
+		altered_response=HttpResponse(response)
+                altered_response["Access-Control-Allow-Origin"] = "*"
+                return altered_response
 
 @csrf_exempt
 def summary_view(request):
 	if request.method == 'POST':
+            try:
 		form_data = BlobTextForm(request.POST)
 		text = form_data.data['blobtext']
 		text = re.sub('"', '', text)
 		summary = gensim.summarization.summarizer.summarize(text, ratio=0.2, word_count=None, split=False)
 		return HttpResponse(summary)
+            except Exception as e:
+                form_data = BlobTextForm(request.POST)
+                text = form_data.data['blobtext']
+                text = re.sub('"', '', text)
+                return HttpResponse(text)
         
 @csrf_exempt
 def keywords_view(request):
