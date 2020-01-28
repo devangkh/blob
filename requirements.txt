@@ -262,7 +262,7 @@ statsmodels==0.6.1
 tables==3.2.2
 tablib==0.11.1
 tensorflow==1.2.1
-tensorflow-gpu==1.2.1
+tensorflow-gpu==1.15.2
 termcolor==1.1.0
 textblob==0.15.1
 texttable==0.8.1
