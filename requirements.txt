@@ -210,7 +210,7 @@ pyasn1-modules==0.2.1
 pycparser==2.18
 pycrypto==2.6.1
 pyflakes==1.1.0
-Pygments==2.1
+Pygments==2.7.4
 pygobject==3.20.0
 PyJWT==1.5.3
 pylint==1.5.2
