@@ -10,7 +10,7 @@ asgiref==1.1.2
 asn1crypto==0.24.0
 astroid==1.4.4
 attrs==17.3.0
-autobahn==17.9.3
+autobahn==20.12.3
 Automat==0.6.0
 awscli==1.6.2
 Babel==2.2.0
