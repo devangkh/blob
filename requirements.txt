@@ -172,7 +172,7 @@ kombu==3.0.37
 lazy-object-proxy==1.2.1
 lockfile==0.12.2
 logilab-common==1.1.0
-lxml==3.3.3
+lxml==4.6.5
 Markdown==2.6.8
 MarkupSafe==0.23
 matplotlib==1.5.1
