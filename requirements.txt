@@ -43,7 +43,7 @@ constantly==15.1.0
 cqlengine==0.21.0
 cryptography==1.8.1
 csscompressor==0.9.4
-cvxopt==1.1.4
+cvxopt==1.2.7
 cycler==0.9.0
 cymem==1.31.2
 Cython==0.23.1
