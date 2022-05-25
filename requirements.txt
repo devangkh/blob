@@ -212,7 +212,7 @@ pycrypto==2.6.1
 pyflakes==1.1.0
 Pygments==2.1
 pygobject==3.20.0
-PyJWT==1.5.3
+PyJWT==2.4.0
 pylint==1.5.2
 pymongo==3.4.0
 pyOpenSSL==17.3.0
